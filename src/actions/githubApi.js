@@ -7,7 +7,7 @@ export const ADD_NEW_REPOSITORIES = "ADD_NEW_REPOSITORIES";
 // GET OWNER
 export const getOwner = async (username) => {
   const response = await axios.get(`https://api.github.com/users/${username}`);
-  return response;
+  return response.data;
 };
 
 export const handleActionGetOwner = (response) => async (dispatch) => {
@@ -30,7 +30,7 @@ export const handleActionGetOwner = (response) => async (dispatch) => {
 // GET REPOS
 export const getRepositories = async (username) => {
   const response = await axios.get(`https://api.github.com/users/${username}/repos`);
-  return response;
+  return response.data;
 };
 
 export const handleActionGetRepositories = (response, username) => async (dispatch) => {
