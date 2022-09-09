@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { getOwner, handleActionGetOwner, getRepositories, handleActionGetRepositories } from "./actions/githubApi";
 import { handleActionSetIsLogin } from "./actions/authLogin";
 import "./App.css";
@@ -12,7 +12,7 @@ function App() {
   const { Title } = Typography;
   const { Search } = Input;
 
-  const githubApi = useSelector((state) => state.githubApi);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchData("hikmanisyariful");
@@ -20,13 +20,16 @@ function App() {
 
   const fetchData = async (username) => {
     try {
+      setIsLoading(true);
       const owner = await getOwner(username);
       dispatch(handleActionGetOwner(owner));
       const repositories = await getRepositories(owner.login);
       dispatch(handleActionGetRepositories(repositories, owner.login));
       dispatch(handleActionSetIsLogin(owner.login));
+      setIsLoading(false);
     } catch (error) {
       alert("error");
+      setIsLoading(false);
     }
   };
 
@@ -46,12 +49,14 @@ function App() {
           <Title level={1}>Profile Owner</Title>
         </Col>
         <Col span={5} offset={10}>
-          <Search placeholder="Enter your username Github" onSearch={onSearch} enterButton />
+          <Search placeholder="Enter your username Github" onSearch={onSearch} enterButton allowClear />
         </Col>
       </Row>
 
       {/* {JSON.stringify(authLogin)} */}
-      <ContentContainer />
+      <Spin spinning={isLoading} style={{ marginTop: 200 }}>
+        <ContentContainer />
+      </Spin>
     </div>
   );
 }

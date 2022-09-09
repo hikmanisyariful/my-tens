@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row } from "antd";
+import { Card } from "antd";
 
 export default function CardContainer({ githubApi, authLogin }) {
   const repositories = Object.values(githubApi).find((data) => data.owner.username === authLogin.isLogin).repositories;
