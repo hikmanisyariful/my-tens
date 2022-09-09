@@ -1,12 +1,5 @@
 import { ADD_NEW_OWNER, ADD_NEW_REPOSITORIES } from "../actions/githubApi";
 
-const initialState = {
-  hikmanisyariful: {
-    owner: {},
-    repositories: [],
-  },
-};
-
 export default function githubApi(state = {}, action) {
   switch (action.type) {
     case ADD_NEW_OWNER:
