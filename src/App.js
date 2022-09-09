@@ -46,7 +46,7 @@ function App() {
     <div className="App">
       <Row style={{ textAlign: "center", marginTop: 30 }}>
         <Col span={5} offset={1}>
-          <Title level={1}>Profile Owner</Title>
+          <Title level={1}>Github API</Title>
         </Col>
         <Col span={5} offset={10}>
           <Search placeholder="Enter your username Github" onSearch={onSearch} enterButton allowClear />
