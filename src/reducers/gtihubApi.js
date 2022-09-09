@@ -12,9 +12,9 @@ export default function githubApi(state = {}, action) {
     case ADD_NEW_OWNER:
       return {
         ...state,
-        [action.data.username]: {
-          ...state[action.data.username],
-          owner: action.data,
+        [action.username]: {
+          ...state[action.username],
+          owner: action.owner,
         },
       };
     case ADD_NEW_REPOSITORIES:

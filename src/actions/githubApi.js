@@ -11,7 +11,7 @@ export const getOwner = async (username) => {
 };
 
 export const handleActionGetOwner = (response) => async (dispatch) => {
-  const payload = {
+  const owner = {
     username: response.login,
     name: response.name,
     url: response.html_url,
@@ -22,7 +22,8 @@ export const handleActionGetOwner = (response) => async (dispatch) => {
   };
   dispatch({
     type: ADD_NEW_OWNER,
-    data: payload,
+    username: owner.username,
+    owner,
   });
 };
 
@@ -35,7 +36,7 @@ export const getRepositories = async (username) => {
 export const handleActionGetRepositories = (response, username) => async (dispatch) => {
   const repositories = mapStateRepositories(response);
   dispatch({
-    type: ADD_NEW_OWNER,
+    type: ADD_NEW_REPOSITORIES,
     username,
     repositories,
   });
