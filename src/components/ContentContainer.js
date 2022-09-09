@@ -11,11 +11,11 @@ export default function ContentContainer() {
   return (
     <>
       <Divider />
-      <Row style={{ margin: 50 }}>
+      <Row style={{ margin: "30px 50px 50px 50px" }}>
         <Col span={5} offset={1}>
           {authLogin.isLogin && <ProfileOwner githubApi={githubApi} authLogin={authLogin} />}
         </Col>
-        <Col span={17}>{authLogin.isLogin && <CardContainer githubApi={githubApi} authLogin={authLogin} />}</Col>
+        <Col span={15}>{authLogin.isLogin && <CardContainer githubApi={githubApi} authLogin={authLogin} />}</Col>
       </Row>
     </>
   );

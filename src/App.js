@@ -4,39 +4,53 @@ import { getOwner, handleActionGetOwner, getRepositories, handleActionGetReposit
 import { handleActionSetIsLogin } from "./actions/authLogin";
 import "./App.css";
 import "antd/dist/antd.css";
-import { Row } from "antd";
+import { Row, Col, Typography, Input, Spin } from "antd";
 import ContentContainer from "./components/ContentContainer";
 
 function App() {
   const dispatch = useDispatch();
+  const { Title } = Typography;
+  const { Search } = Input;
 
   const githubApi = useSelector((state) => state.githubApi);
-  const authLogin = useSelector((state) => state.authLogin);
 
   useEffect(() => {
-    fetchInitialData();
+    fetchData("hikmanisyariful");
   }, []);
 
-  const fetchInitialData = async () => {
+  const fetchData = async (username) => {
     try {
-      const owner = await getOwner("hikmanisyariful");
+      const owner = await getOwner(username);
       dispatch(handleActionGetOwner(owner));
-      dispatch(handleActionSetIsLogin(owner.login));
       const repositories = await getRepositories(owner.login);
       dispatch(handleActionGetRepositories(repositories, owner.login));
+      dispatch(handleActionSetIsLogin(owner.login));
     } catch (error) {
-      console.log("THIS ERROR", error);
       alert("error");
+    }
+  };
+
+  const onSearch = (value) => {
+    dispatch(handleActionSetIsLogin(""));
+    if (value) {
+      fetchData(value);
+    } else {
+      fetchData("hikmanisyariful");
     }
   };
 
   return (
     <div className="App">
-      <Row>
-        <h1>github API</h1>
+      <Row style={{ textAlign: "center", marginTop: 30 }}>
+        <Col span={5} offset={1}>
+          <Title level={1}>Profile Owner</Title>
+        </Col>
+        <Col span={5} offset={10}>
+          <Search placeholder="Enter your username Github" onSearch={onSearch} enterButton />
+        </Col>
       </Row>
 
-      {JSON.stringify(authLogin)}
+      {/* {JSON.stringify(authLogin)} */}
       <ContentContainer />
     </div>
   );
